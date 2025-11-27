@@ -9,7 +9,7 @@ function App() {
 
       {/* MAIN WRAPPER */}
 
-<div className="flex justify-center pt-14 md:pt-0 md:ml-10 pl-4 pr-0 w-full! md:pt-10 max-w-full flex overflow-x-visible">
+<div className="flex justify-center pt-14 md:ml-10 pl-4 pr-0 w-full! md:pt-10 max-w-full  overflow-x-visible">
  
        
 

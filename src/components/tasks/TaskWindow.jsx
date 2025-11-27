@@ -107,7 +107,7 @@ const TaskWindow = () => {
       <div className="relative z-0 overflow-x-auto">
         <DragDropContext onDragEnd={handleDragEnd}>
 
-          {/* ⭐ FIXED: Now columns fill space properly keep flex row til small and then go for flex col means flex col in small and till small that means for big ones keep row  */}
+          {/* ⭐ FIXED: Now columns fill space properly keep flex row til small and then go for flex col means flex col in small devices and till small that means for big ones keep row  */}
 <div className=" flex flex-col sm:flex-row
  gap-6 w-full pb-6 md:overflow-x-auto">
 
