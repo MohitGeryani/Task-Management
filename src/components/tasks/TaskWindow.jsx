@@ -196,9 +196,12 @@ shadow-md
 
                   >
 
-                    <h2 className="font-bold mb-3 text-black  dark:text-white">{column.name}  <span className="text-xs px-1.5 ml-0.5  py-0.5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
+                   <h2 className="font-bold mb-3 text-black dark:text-white flex items-center gap-2">
+  {column.name}
+  <span className="text-xs px-2 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
     {tasksByColumn[column.id].length}
-  </span></h2>
+  </span>
+</h2>
 
                     {tasksByColumn[column.id].map((task, index) => (
                       <Draggable
