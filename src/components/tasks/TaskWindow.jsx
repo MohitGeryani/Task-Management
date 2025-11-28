@@ -152,7 +152,8 @@ shadow-md
             );
           }}
         >
-          {col.name}
+          {col.name}  
+
         </DropdownMenuCheckboxItem>
       ))}
     </DropdownMenuContent>
@@ -195,7 +196,7 @@ shadow-md
 
                   >
 
-                    <h2 className="font-bold mb-3 text-black  dark:text-white">{column.name}</h2>
+                    <h2 className="font-bold mb-3 text-black  dark:text-white">{column.name} ({tasksByColumn[column.id].length})</h2>
 
                     {tasksByColumn[column.id].map((task, index) => (
                       <Draggable
