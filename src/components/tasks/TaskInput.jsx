@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 const TaskInput = ({ newTask, setNewTask, addTask }) => {
+  const [error, setError] = useState("");
+
   const handleAddTask = () => {
-    if (!newTask.trim()) return;
+    if (!newTask.trim()) {
+      setError("Task cannot be empty");
+      return;
+    }
     addTask(newTask);
     setNewTask("");
+    setError(""); // clear error on successful add
   };
 
   const handleKeyPress = (e) => {
@@ -14,18 +20,13 @@ const TaskInput = ({ newTask, setNewTask, addTask }) => {
 
   return (
     <div className="mt-4 flex gap-2 sm:gap-3 flex-col sm:flex-row mb-5">
-
       <div className="flex-1 relative w-full">
         <div
           className="
             flex items-center gap-3
             px-4 py-3 rounded-lg transition-colors
-
-            /* LIGHT MODE */
             bg-white border border-slate-200 
             focus-within:border-teal-400 shadow-sm
-
-            /* DARK MODE (unchanged) */
             dark:bg-slate-800/30 
             dark:border-slate-700/50 
             dark:focus-within:border-teal-400/50
@@ -41,20 +42,21 @@ const TaskInput = ({ newTask, setNewTask, addTask }) => {
             onKeyPress={handleKeyPress}
             className="
               flex-1 outline-none text-sm
-
-              /* LIGHT MODE */
               text-slate-700 placeholder-slate-400
-
-              /* DARK MODE */
               dark:bg-transparent
               dark:text-white 
               dark:placeholder-slate-500
             "
           />
         </div>
+        {error && (
+          <p className="mt-1 text-red-500 text-xs italic">
+            {error}
+          </p>
+        )}
       </div>
 
-     <Button
+      <Button
         onClick={handleAddTask}
         className="bg-teal-500! hover:bg-teal-600! text-white px-4! py-2! rounded-lg font-semibold text-sm w-full sm:w-auto! h-13"
       >
@@ -65,6 +67,7 @@ const TaskInput = ({ newTask, setNewTask, addTask }) => {
 };
 
 export default TaskInput;
+
 
 // import React from "react";
 // import { Button } from "@/components/ui/button";
