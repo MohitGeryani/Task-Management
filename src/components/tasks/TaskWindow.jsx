@@ -32,14 +32,17 @@ const TaskWindow = () => {
   columns.map(col => col.id) // default: all columns visible
 );
 
+const [searchQuery, setSearchQuery] = useState("");
+const tasksByColumn = useMemo(() => {
+  const grouped = {};
+  columns.forEach(col => {
+    grouped[col.id] = tasks
+      .filter(t => t.status === col.id)
+      .filter(t => t.text.toLowerCase().includes(searchQuery.toLowerCase())); // filter by search
+  });
+  return grouped;
+}, [tasks, searchQuery]);
 
-  const tasksByColumn = useMemo(() => {
-    const grouped = {};
-    columns.forEach(col => {
-      grouped[col.id] = tasks.filter(t => t.status === col.id);
-    });
-    return grouped;
-  }, [tasks]);
 
   const handleDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -49,6 +52,7 @@ const TaskWindow = () => {
       updateTaskStatus(Number(draggableId), destination.droppableId);
     }
   };
+const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
    
@@ -72,13 +76,35 @@ border-teal-200 dark:border-teal-500/20
             <p className="text-xs text-slate-400 font-medium">Restaurant Operations</p>
           </div>
         </div>
-        <button className="hover:bg-slate-100 dark:hover:bg-slate-800
- dark:border-transparent
-hover:border-slate-300 dark:hover:border-slate-700
-text-slate-500 dark:text-slate-400
-">
-          <Search className="w-5 h-5 text-slate-400 group-hover:text-teal-400 transition-colors" />
-        </button>
+<div className="relative flex items-center">
+  {/* Search Icon */}
+  <button
+    onClick={() => setIsSearchOpen(prev => !prev)}
+    className="p-1 focus:outline-none! border-none hover:border-0"
+  >
+    <Search className="w-5 h-5 text-slate-400  hover:text-teal-400 transition-colors" />
+  </button>
+
+  {/* Animated Search Input expanding to the left */}
+  <input
+    type="text"
+    placeholder="Search tasks..."
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    className={`
+      absolute right-0 top-0
+      h-8
+      pl-3 pr-8 py-2 rounded-lg border border-slate-300 text-sm outline-none
+      dark:bg-slate-700 dark:text-white dark:border-slate-600
+      focus:border-teal-400 focus:ring-1 focus:ring-teal-400
+      transition-all duration-300 ease-in-out
+      origin-right
+      ${isSearchOpen ? "sm:w-64    opacity-100 visible" : "w-0 opacity-0 invisible"}
+    `}
+  />
+</div>
+
+
       </div>
 
       {/* Task Input */}
