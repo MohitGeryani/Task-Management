@@ -11,7 +11,7 @@ const TaskInput = ({ newTask, setNewTask, addTask }) => {
     }
     addTask(newTask);
     setNewTask("");
-    setError(""); // clear error on successful add
+    setError("");
   };
 
   const handleKeyPress = (e) => {
@@ -19,41 +19,36 @@ const TaskInput = ({ newTask, setNewTask, addTask }) => {
   };
 
   return (
-    <div className="mt-4 flex gap-2 sm:gap-3 flex-col sm:flex-row mb-5">
+    <div className="mt-4 flex gap-2 sm:gap-3 flex-col sm:flex-row mb-5 items-start">
       <div className="flex-1 relative w-full">
-        <div
-          className="
-            flex items-center gap-3
-            px-4 py-3 rounded-lg transition-colors
-            bg-white border border-slate-200 
-            focus-within:border-teal-400 shadow-sm
-            dark:bg-slate-800/30 
-            dark:border-slate-700/50 
-            dark:focus-within:border-teal-400/50
-          "
-        >
-          <span className="text-slate-400 dark:text-slate-500 font-medium text-lg">+</span>
+        <div className="relative">
+          <div
+            className={`
+              flex items-center gap-3 px-4 py-3 rounded-lg transition-all
+              bg-white border ${error ? "border-red-500" : "border-slate-200"}
+              shadow-sm dark:bg-slate-800/30 dark:border-slate-700/50
+              focus-within:border-teal-400 dark:focus-within:border-teal-400/50
+            `}
+          >
+            <span className="text-slate-400 dark:text-slate-500 font-medium text-lg">+</span>
 
-          <input
-            type="text"
-            placeholder="Add new task"
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}
-            onKeyPress={handleKeyPress}
-            className="
-              flex-1 outline-none text-sm
-              text-slate-700 placeholder-slate-400
-              dark:bg-transparent
-              dark:text-white 
-              dark:placeholder-slate-500
-            "
-          />
+            <input
+              type="text"
+              placeholder="Add new task"
+              value={newTask}
+              onChange={(e) => setNewTask(e.target.value)}
+              onKeyPress={handleKeyPress}
+              className="flex-1 outline-none text-sm text-slate-700 placeholder-slate-400 dark:bg-transparent dark:text-white dark:placeholder-slate-500"
+            />
+          </div>
+
+          {/* Floating Animated Error */}
+          {error && (
+            <p className="absolute -top-5 left-2 text-red-500 text-xs italic animate-fade-in">
+              {error}
+            </p>
+          )}
         </div>
-        {error && (
-          <p className="mt-1 text-red-500 text-xs italic">
-            {error}
-          </p>
-        )}
       </div>
 
       <Button
@@ -67,6 +62,7 @@ const TaskInput = ({ newTask, setNewTask, addTask }) => {
 };
 
 export default TaskInput;
+
 
 
 // import React from "react";
