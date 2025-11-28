@@ -78,9 +78,10 @@ dark:shadow-inner rounded-none md:rounded-3xl p-4 sm:p-6 shadow-inner ">
     </div>
 
     <div>
-      <h1 className="text-xs! sm:text-2xl font-bold text-black dark:text-white tracking-tight">
-        Task Manager
-      </h1>
+<h1 className="!text-xs sm:!text-2xl font-bold text-black dark:text-white tracking-tight">
+  Task Manager
+</h1>
+
       <p className="text-xs text-slate-400 font-medium">Restaurant Operations</p>
     </div>
   </div>
