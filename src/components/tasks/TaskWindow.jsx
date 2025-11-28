@@ -61,51 +61,64 @@ border border-slate-200 dark:border-none
 dark:shadow-inner rounded-none md:rounded-3xl p-4 sm:p-6 shadow-inner ">
 
       {/* Header */}
-      <div className="border  rounded-2xl bg-slate-900/40 backdrop-blur-md p-6 mb-6 flex justify-between items-center shadow-lg bg-white dark:bg-slate-900/40
-border border-slate-200 dark:border-slate-700/50
- dark:shadow-lg
- ">
-        <div className="flex items-center gap-4">
-          <div className="bg-teal-50 dark:bg-teal-500/10
-border-teal-200 dark:border-teal-500/20
-">
-            <DockIcon className="text-teal-400 w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-xs! sm:text-2xl! font-bold text-black dark:text-white tracking-tight">Task Manager</h1>
-            <p className="text-xs text-slate-400 font-medium">Restaurant Operations</p>
-          </div>
-        </div>
-<div className="relative flex items-center">
-  {/* Search Icon */}
-  <button
-    onClick={() => setIsSearchOpen(prev => !prev)}
-    className="p-1 focus:outline-none! border-none hover:border-0"
+     <div
+  className="border rounded-2xl bg-slate-900/40 backdrop-blur-md p-6 mb-6 
+             flex justify-between items-center shadow-lg bg-white dark:bg-slate-900/40
+             border border-slate-200 dark:border-slate-700/50 dark:shadow-lg relative"
+>
+
+  {/* LEFT SIDE — hidden when search is open */}
+  <div
+    className={`flex items-center gap-4 transition-all duration-300 ${
+      isSearchOpen ? "opacity-0 pointer-events-none" : "opacity-100"
+    }`}
   >
-    <Search className="w-5 h-5 text-slate-400  hover:text-teal-400 transition-colors" />
+    <div className="bg-teal-50 dark:bg-teal-500/10 border-teal-200 dark:border-teal-500/20">
+      <DockIcon className="text-teal-400 w-6 h-6" />
+    </div>
+
+    <div>
+      <h1 className="text-xs! sm:text-2xl font-bold text-black dark:text-white tracking-tight">
+        Task Manager
+      </h1>
+      <p className="text-xs text-slate-400 font-medium">Restaurant Operations</p>
+    </div>
+  </div>
+
+  {/* RIGHT — SEARCH ICON (hidden when search opened) */}
+  <button
+    onClick={() => setIsSearchOpen(true)}
+    className={`p-2 transition-all duration-300 ${
+      isSearchOpen ? "opacity-0 pointer-events-none" : "opacity-100"
+    }`}
+  >
+    <Search className="w-5 h-5 text-slate-400 hover:text-teal-400 transition-colors" />
   </button>
 
-  {/* Animated Search Input expanding to the left */}
-  <input
-    type="text"
-    placeholder="Search tasks..."
-    value={searchQuery}
-    onChange={(e) => setSearchQuery(e.target.value)}
-    className={`
-      absolute right-0 top-0
-      h-8
-      pl-3 pr-8 py-2 rounded-lg border border-slate-300 text-sm outline-none
-      dark:bg-slate-700 dark:text-white dark:border-slate-600
-      focus:border-teal-400 focus:ring-1 focus:ring-teal-400
-      transition-all duration-300 ease-in-out
-      origin-right
-      ${isSearchOpen ? "sm:w-64    opacity-100 visible" : "w-0 opacity-0 invisible"}
-    `}
-  />
+  {/* FULL SEARCH BAR MODE */}
+  <div
+    className={`absolute inset-0 flex items-center gap-3 px-6 transition-all duration-300
+                ${isSearchOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+  >
+    {/* Search Input */}
+    <input
+      type="text"
+      placeholder="Search tasks..."
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      autoFocus
+      className="w-full py-2 px-4 rounded-xl bg-transparent border border-slate-300
+                 dark:border-slate-700 dark:bg-slate-800/40 dark:text-white
+                 focus:ring-2 focus:ring-teal-400 outline-none placeholder-slate-400"
+    />
+
+    {/* Close Button */}
+    <button onClick={() => { setIsSearchOpen(false); setSearchQuery(""); }}>
+      <span className="text-slate-500 hover:text-red-400 text-xl font-bold">✕</span>
+    </button>
+  </div>
 </div>
 
-
-      </div>
 
       {/* Task Input */}
      <div className="flex w-full gap-4   items-center!">
