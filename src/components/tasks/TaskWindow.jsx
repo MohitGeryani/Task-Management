@@ -108,7 +108,7 @@ dark:shadow-inner rounded-none md:rounded-3xl p-4 sm:p-6 shadow-inner ">
       onChange={(e) => setSearchQuery(e.target.value)}
       autoFocus
       className="w-full py-2 px-4 rounded-xl bg-transparent border border-slate-300
-                 dark:border-slate-700 dark:bg-slate-800/40 dark:text-white
+                 dark:border-slate-700 dark:bg-slate-800/40 dark:text-[#bebebe] text-[#a19e9e]
                  focus:ring-2 focus:ring-teal-400 outline-none placeholder-slate-400"
     />
 
