@@ -2,6 +2,7 @@ import { Home, Menu, School } from "lucide-react";
 import { Link } from "react-router-dom";
 import ThemeSwitch from "./ThemeSwitch";
 import { useState } from "react";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -24,12 +25,16 @@ const Navbar = () => {
         </div>
 
         {/* RIGHT — MENU BUTTON */}
-        <button
-          className="p-2 rounded-md bg-gray-100 dark:bg-gray-800 active:scale-95 transition"
-          onClick={() => setOpen(true)}
-        >
-          <Menu size={20} />
-        </button>
+<div className="flex items-center gap-2">
+  <ThemeSwitch />
+  <Button
+    className="p-2 rounded-md bg-white dark:bg-gray-800 border border-gray-200 hover:bg-gray-50 dark:border-0 active:scale-95 transition shadow-sm hover:shadow-md"
+    onClick={() => setOpen(true)}
+  >
+    <Menu size={20} className="text-gray-800 dark:text-gray-200"/>
+  </Button>
+</div>
+
       </div>
 
       {/* ================= MOBILE SIDEBAR MENU ================= */}
@@ -55,9 +60,7 @@ const Navbar = () => {
                 Home
               </Link>
 
-              <div className="pt-4">
-                <ThemeSwitch />
-              </div>
+             
             </nav>
           </div>
         </div>
@@ -71,16 +74,14 @@ const Navbar = () => {
             <div className="w-5 h-5 bg-teal-400 rounded-full"></div>
             <div className="w-5 h-5 bg-teal-600 rounded-full"></div>
           </div>
-          <Link to="/" className="mb-8">
-            <School size={24} className="text-gray-800 dark:text-gray-100" />
-          </Link>
+         
 
           {/* NAV ICONS */}
           <nav className="flex flex-col gap-6 items-center">
             <Link to="/" className="text-gray-800 dark:text-gray-200 hover:text-teal-500 transition">
               <Home size={24} />
             </Link>
-            {/* Add more icons here if needed */}
+            {/*  icons here if needed */}
           </nav>
         </div>
 

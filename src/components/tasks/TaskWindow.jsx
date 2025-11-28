@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"; 
 import { Filter } from "lucide-react"; 
 import { useLocalStorage } from "@/Hooks/useLocalStorage";
+import { Button } from "../ui/button";
 
 
 const columns = [
@@ -51,20 +52,31 @@ const TaskWindow = () => {
 
   return (
    
-    <div className="w-[90%]    rounded-none md:rounded-3xl p-4 sm:p-6 shadow-inner ">
+    <div className="w-[90%]   bg-[#fdfdfd] dark:bg-transparent
+border border-slate-200 dark:border-none
+dark:shadow-inner rounded-none md:rounded-3xl p-4 sm:p-6 shadow-inner ">
 
       {/* Header */}
-      <div className="border border-slate-700/50 rounded-2xl bg-slate-900/40 backdrop-blur-md p-6 mb-6 flex justify-between items-center shadow-lg">
+      <div className="border  rounded-2xl bg-slate-900/40 backdrop-blur-md p-6 mb-6 flex justify-between items-center shadow-lg bg-white dark:bg-slate-900/40
+border border-slate-200 dark:border-slate-700/50
+ dark:shadow-lg
+ ">
         <div className="flex items-center gap-4">
-          <div className="p-3 bg-teal-500/10 rounded-xl border border-teal-500/20">
+          <div className="bg-teal-50 dark:bg-teal-500/10
+border-teal-200 dark:border-teal-500/20
+">
             <DockIcon className="text-teal-400 w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-xs! sm:text-2xl! font-bold text-white tracking-tight">Task Manager</h1>
+            <h1 className="text-xs! sm:text-2xl! font-bold text-black dark:text-white tracking-tight">Task Manager</h1>
             <p className="text-xs text-slate-400 font-medium">Restaurant Operations</p>
           </div>
         </div>
-        <button className="p-3 hover:bg-slate-800 rounded-xl transition-all border border-transparent hover:border-slate-700 group">
+        <button className="hover:bg-slate-100 dark:hover:bg-slate-800
+ dark:border-transparent
+hover:border-slate-300 dark:hover:border-slate-700
+text-slate-500 dark:text-slate-400
+">
           <Search className="w-5 h-5 text-slate-400 group-hover:text-teal-400 transition-colors" />
         </button>
       </div>
@@ -77,12 +89,18 @@ const TaskWindow = () => {
 
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
-      <button className="p-3 sm:mb-1 mb-15 hover:bg-slate-800 rounded-xl transition-all border border-transparent hover:border-slate-700 group">
+      <button className="bg-transparent! p-1! dark:bg-transparent mb-15
+ dark:border-transparent sm:mb-2
+hover:bg-slate-100 dark:hover:bg-slate-800
+">
         <Filter className="w-5 h-7  text-slate-400 group-hover:text-teal-400 transition-colors" />
       </button>
     </DropdownMenuTrigger>
 
-    <DropdownMenuContent className="bg-slate-900 border border-slate-700 rounded-xl p-2">
+    <DropdownMenuContent className="bg-white dark:bg-slate-900
+border border-slate-200 dark:border-slate-700
+shadow-md
+">
       {columns.map((col) => (
         <DropdownMenuCheckboxItem
           key={col.id}
@@ -126,18 +144,19 @@ const TaskWindow = () => {
                     {...provided.droppableProps}
 
                     //   COLUMN STYLING 
-                    className={`
-                     bg-[#faf9f9] dark:bg-slate-800/50 p-4 rounded-2xl flex flex-col 
-                      min-h-[400px] min-w-[280px] flex-1 
-                      border-2 transition-all duration-200  md:shadow-xl 
-                      ${snapshot.isDraggingOver
-                        ? "border-teal-500/50 bg-slate-800/60 shadow-[0_0_15px_rgba(20,184,166,0.1)]"
-                        : "border-slate-700/50"
-                      }
-                    `}
+                   className={`
+  bg-white dark:bg-slate-800/50 p-4 rounded-2xl flex flex-col 
+  min-h-[400px] min-w-[280px] flex-1 
+  dark:border-2 transition-all duration-200 md:shadow-xl
+  ${snapshot.isDraggingOver
+    ? "dark:border-teal-500/50 bg-slate-800/60 shadow-[0_0_15px_rgba(20,184,166,0.1)]"
+    : "dark:border-slate-700/50 border-[#f1f1f1]"
+  }
+`}
+
                   >
 
-                    <h2 className="font-bold mb-3 text-white">{column.name}</h2>
+                    <h2 className="font-bold mb-3 text-black  dark:text-white">{column.name}</h2>
 
                     {tasksByColumn[column.id].map((task, index) => (
                       <Draggable
