@@ -1,16 +1,10 @@
 
-import { useTasks } from '@/context/TaskContext';
 import React from 'react'
 
 
 
-const abortDeletef = () => {
-    abortDeletef(true)
-}
 
-
-
-const Undo = ({task}) => {
+const Undo = () => {
 
     
     // const {  undoTask } = useTasks();
@@ -20,7 +14,7 @@ const Undo = ({task}) => {
      
   return (
     
-    <div onClick={abortDeletef} >
+    <div >
 
         Undo
 

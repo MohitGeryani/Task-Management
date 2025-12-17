@@ -1,5 +1,5 @@
 import { useLocalStorage } from "@/Hooks/useLocalStorage";
-import React, { createContext, useContext, useCallback, useMemo, useState } from "react";
+import React, { createContext, useContext, useCallback, useState } from "react";
 
 
 const TaskContext = createContext();
@@ -25,6 +25,16 @@ export const TaskProvider = ({ children }) => {
     },
     [setTasks]
   );
+
+
+const editTask = useCallback((id, newText) => {
+  if (!newText.trim()) return;
+  setTasks(prev =>
+    prev.map(task => (task.id === id ? { ...task, text: newText } : task))
+  );
+}, [setTasks]);
+
+
 
   const deleteTask = (task) => {
     setLastDeleted(task);
@@ -83,6 +93,7 @@ export const TaskProvider = ({ children }) => {
         addTask,
         deleteTask,
         undoDelete,
+        editTask,
         updateTaskStatus,
         showUndo,
       }}
