@@ -24,13 +24,19 @@ const columns = [
   { id: "completed", name: "Completed" },
 ];
 
+
 const TaskWindow = () => {
   const { tasks, updateTaskStatus, deleteTask, addTask } = useTasks();
+
+  
+const abortDelete = useState(false);
   const [newTask, setNewTask] = useState("");
     const [visibleColumns, setVisibleColumns] = useLocalStorage(
   "visibleColumns",
   columns.map(col => col.id) // default: all columns visible
 );
+
+ const { showUndo, undoDelete } = useTasks();
 
 const [searchQuery, setSearchQuery] = useState("");
 const tasksByColumn = useMemo(() => {
@@ -62,7 +68,7 @@ dark:shadow-inner rounded-none md:rounded-3xl p-4 sm:p-6 shadow-inner ">
 
       {/* Header */}
      <div
-  className="border rounded-2xl bg-slate-900/40 backdrop-blur-md p-6 mb-6 
+  className="border rounded-2xl bg-slate-900/40 backdrop-blur-md p-6 mb-6  
              flex justify-between items-center shadow-lg bg-white dark:bg-slate-900/40
              border border-slate-200 dark:border-slate-700/50 dark:shadow-lg relative"
 >
@@ -219,6 +225,7 @@ shadow-md
                             <TaskItem
                               task={task}
                               deleteTask={deleteTask}
+                            abortDelete = {abortDelete}
                               updateTaskStatus={updateTaskStatus}
                             />
                           </div>
@@ -242,7 +249,32 @@ shadow-md
 
           </div>
         </DragDropContext>
+
+      {showUndo && (
+  <div
+    className="
+      fixed left-1/2 -translate-x-1/2
+      bottom-100 sm:bottom-6
+      bg-slate-900 text-white px-4 py-3 rounded-xl
+      flex gap-4 items-center shadow-lg
+      z-50
+    "
+  >
+    <span className="text-sm">Task deleted</span>
+    <button
+      onClick={undoDelete}
+      className="text-teal-400 font-semibold"
+    >
+      Undo
+    </button>
+  </div>
+)}
+
+
       </div>
+     
+
+
     </div>
   );
 };

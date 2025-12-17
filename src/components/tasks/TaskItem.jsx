@@ -1,20 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Trash2 } from "lucide-react";
+import Undo from "../undo";
+
+
 
 const TaskItem = ({ task, deleteTask, updateTaskStatus }) => {
   const [isAnimating, setIsAnimating] = useState(true);
   const [isCompleting, setIsCompleting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  
+
+
+
+
 
   const handleComplete = () => {
     setIsCompleting(true);
     setTimeout(() => updateTaskStatus(task.id, "completed"), 300);
   };
 
-  const handleDelete = () => {
-    setIsDeleting(true);
-    setTimeout(() => deleteTask(task.id), 300); // wait for animation before removing
-  };
+const handleDelete = () => {
+  setIsDeleting(true);
+  setTimeout(() => deleteTask(task), 300);
+};
+
 
   useEffect(() => {
     const timer = setTimeout(() => setIsAnimating(false), 300); // stop initial animation
@@ -38,7 +47,7 @@ const TaskItem = ({ task, deleteTask, updateTaskStatus }) => {
         {task.text}
       </span>
 
-      {task.status !== "completed" && (
+      {task.status !== "completed" &&  (
         <button
           onClick={handleComplete}
           className="text-teal-600 hover:text-teal-700 text-lg mt-1 dark:text-teal-400 dark:hover:text-teal-300 transition-transform duration-300"
@@ -47,12 +56,14 @@ const TaskItem = ({ task, deleteTask, updateTaskStatus }) => {
         </button>
       )}
 
-      <button
+
+
+    <button
         onClick={handleDelete}
         className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded transition-colors dark:hover:bg-slate-800"
       >
         <Trash2 className="w-5 h-5" />
-      </button>
+      </button> 
     </div>
   );
 };

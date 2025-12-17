@@ -1,5 +1,5 @@
 import { useLocalStorage } from "@/Hooks/useLocalStorage";
-import React, { createContext, useContext, useCallback, useMemo } from "react";
+import React, { createContext, useContext, useCallback, useMemo, useState } from "react";
 
 
 const TaskContext = createContext();
@@ -11,6 +11,8 @@ export const TaskProvider = ({ children }) => {
     { id: 3, text: "Review supplier contracts", status: "pending" },
     { id: 4, text: "Plan weekend promotions", status: "new" },
   ]);
+   const [lastDeleted, setLastDeleted] = useState(null);
+  const [showUndo, setShowUndo] = useState(false);
 
   const addTask = useCallback(
     (text, status = "new") => {
@@ -24,12 +26,42 @@ export const TaskProvider = ({ children }) => {
     [setTasks]
   );
 
-  const deleteTask = useCallback(
-    (id) => {
-      setTasks((prev) => prev.filter((task) => task.id !== id));
-    },
-    [setTasks]
-  );
+  const deleteTask = (task) => {
+    setLastDeleted(task);
+    setShowUndo(true);
+
+    setTasks(prev => prev.filter(t => t.id !== task.id));
+
+    setTimeout(() => {
+      setLastDeleted(null);
+      setShowUndo(false);
+    }, 3000);
+  };
+
+  const undoDelete = () => {
+    if (!lastDeleted) return;
+    setTasks(prev => [...prev, lastDeleted]);
+    setLastDeleted(null);
+    setShowUndo(false);
+  };
+
+  // const deleteTask = useCallback(
+  //   (id) => {
+  //     setTasks((prev) => prev.filter((task) => task.id !== id));
+  //   },
+  //   [setTasks]
+  // );
+
+
+  // const undoTask = useCallback (
+  //   (id) => {
+  //     setTasks((prev) => prev.filter((task) => task.id== id ));
+      
+  //   },
+  //   [setTasks]
+  // );
+
+
 
   const updateTaskStatus = useCallback(
     (id, newStatus) => {
@@ -42,18 +74,41 @@ export const TaskProvider = ({ children }) => {
     [setTasks]
   );
 
-  // 🧠 Only re-render context when tasks actually change
-  const value = useMemo(
-    () => ({
-      tasks,
-      addTask,
-      deleteTask,
-      updateTaskStatus,
-    }),
-    [tasks, addTask, deleteTask, updateTaskStatus]
-  );
 
-  return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;
+
+   return (
+    <TaskContext.Provider
+      value={{
+        tasks,
+        addTask,
+        deleteTask,
+        undoDelete,
+        updateTaskStatus,
+        showUndo,
+      }}
+    >
+      {children}
+    </TaskContext.Provider>
+  );
 };
 
 export const useTasks = () => useContext(TaskContext);
+
+
+ // Only re-render context when tasks actually change
+//   const value = useMemo(
+//     () => ({
+//       tasks,
+//       addTask,
+//       deleteTask,
+//       undoDelete,
+//       updateTaskStatus,
+//       showUndo
+//     }),
+//     [tasks, addTask, deleteTask, undoTask, updateTaskStatus]
+//   );
+
+//   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;
+// };
+
+// export const useTasks = () => useContext(TaskContext);

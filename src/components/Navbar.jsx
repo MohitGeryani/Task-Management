@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <>
-      {/* ================= MOBILE NAVBAR (EXACTLY SAME) ================= */}
+      {/* ================= MOBILE NAVBAR  ================= */}
       <div className="md:hidden fixed top-0 left-0 right-0 h-14 bg-white dark:bg-[#0A0A0A] border-b border-gray-200 dark:border-gray-800 z-20 px-4 flex items-center justify-between">
         {/* LEFT — LOGO */}
         <div className="flex items-center gap-2">
